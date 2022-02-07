@@ -1,0 +1,8 @@
+
+FROM python
+
+COPY . .
+
+RUN crontab crontab
+
+CMD ["crond", "-f"]

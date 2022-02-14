@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3.8"
 
 services:
   proxy:
@@ -11,17 +11,22 @@ services:
 
   scraper:
     container_name: scrape-machine
-    restart: always
+    restart: unless-stopped
     build: ./project-scrape-machine
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 8000:8000
     depends_on:
       - proxy
       - mongo
     links:
       - mongo
+      - proxy
 
   api:
     container_name: api-container-node-mongo
-    restart: always
+    restart: unless-stopped
     build: ./project-api-server
     ports:
       - 4000:4000
@@ -34,7 +39,7 @@ services:
 
   client:
     container_name: client-container
-    restart: always
+    restart: unless-stopped
     build: ./project-client
     ports:
       - 3000:3000
@@ -44,18 +49,18 @@ services:
   mongo:
     container_name: mongo-container
     image: mongo
-    restart: always
+    restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     ports:
       - 27017:27017
     volumes:
-      - ./project-database/db:/data/db
+      - ./project-database/dbTesting:/data/db
 
   mongo-express:
     image: mongo-express
-    restart: always
+    restart: unless-stopped
     ports:
       - 8081:8081
     environment:

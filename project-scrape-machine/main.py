@@ -50,7 +50,7 @@ class TorScraperMachine(Encoder, NamedEntityRecognition):
         from bs4 import BeautifulSoup
         import requests
         proxy_urls = {
-            "http": "http://proxy:8118"
+            "http": "http://localhost:8118"
         }
         response = requests.get(url=f"http://strongerw2ise74v3duebgsvug4mehyhlpa7f6kfwnas7zofs3kov7yd.onion/all?page={page}",
                                 proxies=proxy_urls)
@@ -79,6 +79,7 @@ class TorScraperMachine(Encoder, NamedEntityRecognition):
         import time
         import requests
         import json
+        print('Stated Scraping New Website')
         my_client = pymongo.MongoClient("mongodb://root:example@mongo:27017/pastes-database?authSource=admin")
         database = my_client["pastes-database"]
         collection = database["pastes"]
@@ -94,8 +95,10 @@ class TorScraperMachine(Encoder, NamedEntityRecognition):
             except:
                 pass
         payload = {"pastes": new_pastes_array}
-        requests.post(url='http://localhost:4000/add-pastes', data=json.dumps(payload, cls=Encoder),
+        print(payload)
+        add_new_items = requests.post(url='http://localhost:4000/add-pastes', data=json.dumps(payload, cls=Encoder),
                       headers={"Content-Type": "application/json"})
+        print(add_new_items.json())
 
 
 

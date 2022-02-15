@@ -1,6 +1,5 @@
 from json_dumps import Encoder
 from ner import NamedEntityRecognition
-
 class TorScraperMachine(Encoder, NamedEntityRecognition):
     def __init__(self):
         super(TorScraperMachine, self).__init__()
@@ -50,7 +49,7 @@ class TorScraperMachine(Encoder, NamedEntityRecognition):
         from bs4 import BeautifulSoup
         import requests
         proxy_urls = {
-            "http": "http://localhost:8118"
+            "http": "http://proxy:8118"
         }
         response = requests.get(url=f"http://strongerw2ise74v3duebgsvug4mehyhlpa7f6kfwnas7zofs3kov7yd.onion/all?page={page}",
                                 proxies=proxy_urls)
@@ -96,7 +95,7 @@ class TorScraperMachine(Encoder, NamedEntityRecognition):
                 pass
         payload = {"pastes": new_pastes_array}
         print(payload)
-        add_new_items = requests.post(url='http://localhost:4000/add-pastes', data=json.dumps(payload, cls=Encoder),
+        add_new_items = requests.post(url='http://api:4000/add-pastes', data=json.dumps(payload, cls=Encoder),
                       headers={"Content-Type": "application/json"})
         print(add_new_items.json())
 

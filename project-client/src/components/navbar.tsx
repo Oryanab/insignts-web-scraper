@@ -121,7 +121,7 @@ export default function Navbar() {
         <Nav.Link
           style={{ backgroundColor: "white", marginBottom: "0.5vw" }}
           target="blank"
-          href="https://github.com/Oryanab/movie-ticket-app"
+          href="https://github.com/Oryanab/insignts-web-scraper"
         >
           Github
         </Nav.Link>

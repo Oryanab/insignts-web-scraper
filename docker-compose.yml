@@ -4,63 +4,65 @@ services:
   proxy:
     image: dperson/torproxy
     container_name: torproxy
-    restart: unless-stopped
+    restart: always
     ports:
       - 8118:8118
       - 9050:9050
+    networks:
+      - lognet
 
   scraper:
     container_name: scrape-machine
-    restart: unless-stopped
+    restart: always
     build: ./project-scrape-machine
     volumes:
       - .:/usr/src/app
-    ports:
-      - 8000:8000
     depends_on:
       - proxy
       - mongo
-    links:
-      - mongo
-      - proxy
+      - api
+    networks:
+      - lognet
 
   api:
     container_name: api-container-node-mongo
-    restart: unless-stopped
+    restart: always
     build: ./project-api-server
     ports:
       - 4000:4000
-    links:
-      - mongo
     depends_on:
-      - proxy
-      - scraper
       - mongo
+    networks:
+      - lognet
 
   client:
     container_name: client-container
-    restart: unless-stopped
+    restart: always
     build: ./project-client
     ports:
       - 3000:3000
     depends_on:
       - api
+    networks:
+      - lognet
 
   mongo:
-    container_name: mongo-container
+    container_name: mongo
     image: mongo
-    restart: unless-stopped
+    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     ports:
       - 27017:27017
     volumes:
-      - ./project-database/dbTesting:/data/db
+      - ./project-database/db:/data/db
+    networks:
+      - lognet
 
   mongo-express:
     image: mongo-express
-    restart: unless-stopped
+    restart: always
     ports:
       - 8081:8081
     environment:
@@ -69,3 +71,9 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
     depends_on:
       - mongo
+    networks:
+      - lognet
+
+networks:
+  lognet:
+    driver: bridge

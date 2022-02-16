@@ -23,6 +23,7 @@ services:
       - api
     networks:
       - lognet
+    command: ["python", "main.py"]
 
   api:
     container_name: api-container-node-mongo

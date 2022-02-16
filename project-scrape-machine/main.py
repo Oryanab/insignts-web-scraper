@@ -103,7 +103,7 @@ class TorScraperMachine(Encoder, NamedEntityRecognition):
 
 if __name__ == "__main__":
     tor_scraper_machine = TorScraperMachine()
-    for page in range(3):
+    for page in range(5):
         print('execute main.py')
         tor_scraper_machine.save_new_database(tor_scraper_machine.scrape_new_pastes_data(tor_scraper_machine.scrape_entire_front_page(page)))
 

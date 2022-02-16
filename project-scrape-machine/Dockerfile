@@ -24,11 +24,11 @@ RUN apt-get update
 RUN apt-get -y install cron
 
 # Add crontab file in the cron directory
-ADD crontab /etc/cron.d/crontab
+COPY crontab /etc/cron.d/crontab
 COPY . .
 RUN pip install -r requirements.txt
 # Give execution rights on the cron job
-RUN chmod 0644 /etc/cron.d/crontab
+RUN chmod 744 /etc/cron.d/crontab
 
 # Create the log file to be able to run tail
 RUN touch /var/log/cron.log

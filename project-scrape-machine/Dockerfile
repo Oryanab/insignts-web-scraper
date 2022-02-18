@@ -1,38 +1,27 @@
-# FROM python:latest
-
-# #Install Cron
-# RUN apt-get update && apt-get install -y cron
-
-# # Add crontab file in the cron directory
-# ADD crontab /etc/cron.d/crontab
-# COPY . .
-# RUN pip install -r requirements.txt
-# # Give execution rights on the cron job
-# # RUN chmod 0644 /etc/cron.d/crontab
-
-# # Create the log file to be able to run tail
-# RUN touch /var/log/cron.log
-
-# RUN service cron start
-# # Run the command on container startup
-# CMD tail -f /var/log/cron.log
-
 FROM python:latest
+
+# Add crontab file in the cron directory
+ADD crontab /etc/cron.d/crontab
+COPY . .
+RUN pip install -r requirements.txt
+# Give execution rights on the cron job
+
+# Create the log file to be able to run tail
+RUN touch /var/log/cron.log
 
 #Install Cron
 RUN apt-get update
 RUN apt-get -y install cron
 
-# Add crontab file in the cron directory
-COPY crontab /etc/cron.d/crontab
-COPY . .
-RUN pip install -r requirements.txt
-# Give execution rights on the cron job
-RUN chmod 744 /etc/cron.d/crontab
-
-# Create the log file to be able to run tail
-RUN touch /var/log/cron.log
-
 # Run the command on container startup
-CMD /usr/sbin/cron -f && tail -f /var/log/cron.log
+CMD service cron start ; tail -f /var/log/cron.log
 
+# FROM python:latest
+# RUN apt update && apt install -y cron vim
+# COPY crontab /etc/cron.d/crontab2
+# COPY main.py /main.py
+# #RUN chmod 0644 /etc/cron.d/crontab
+# #RUN /usr/bin/crontab /etc/cron.d/crontab
+# RUN touch /crontest.txt
+# # run crond as main process of container
+# CMD service cron start ; tail -f /crontest.txt

@@ -10,6 +10,7 @@ export default function MainPage() {
   const [totalNumberOfPastes, setTotalNumberOfPastes] = useState<number>(6);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [omniSearch, setOmniSearch] = useState<string>("");
+  const [totalNumberShowing, setTotalNumberShowing] = useState<number>(0);
 
   const loadPastes = async () => {
     const initialPastes = await axios.get("http://localhost:4000/show-pastes");
@@ -43,11 +44,9 @@ export default function MainPage() {
           <br />
           <p>
             Omni Search Showing:{" "}
-            {
-              pastes.filter((item) =>
-                item.paste_entire_content.includes(omniSearch)
-              ).length
-            }{" "}
+            {pastes.filter((item) =>
+              item.paste_entire_content.includes(omniSearch)
+            ).length - totalNumberShowing}{" "}
             / {totalNumberOfPastes}
           </p>
         </div>
@@ -57,6 +56,7 @@ export default function MainPage() {
               <SinglePaste
                 paste={paste}
                 setTotalNumberOfPastes={setTotalNumberOfPastes}
+                setTotalNumberShowing={setTotalNumberShowing}
               />
             );
           }

@@ -53,10 +53,6 @@ export default function Navbar() {
     listenEvt();
     return () => evtSrc.current.close();
   }, []);
-
-  //   const [notificationPastes, setNotificationPastes] =
-  //     useState<PasteNotifications[]>(init);
-
   return (
     <Nav
       style={{

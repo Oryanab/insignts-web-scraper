@@ -33,7 +33,6 @@ const sendEvent = (_req: Request, res: Response) => {
     writeEvent(res, sseId, JSON.stringify(upComingPasteArray));
     upComingPasteArray.length = 0;
   }, SEND_INTERVAL);
-  //writeEvent(res, sseId, JSON.stringify(upComingPasteArray));
 };
 
 router.get("/dashboard", (req: Request, res: Response) => {

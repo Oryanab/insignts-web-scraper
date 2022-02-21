@@ -7,9 +7,11 @@ import { Notyf } from "notyf";
 export default function SinglePaste({
   paste,
   setTotalNumberOfPastes,
+  setTotalNumberShowing,
 }: {
   paste: Paste;
   setTotalNumberOfPastes: any;
+  setTotalNumberShowing: any;
 }) {
   const [show, setShow] = useState<string>("block");
   const notyf = new Notyf();
@@ -71,8 +73,10 @@ export default function SinglePaste({
         <div style={{ display: "flex" }}>
           <Button
             onClick={() => {
+              console.log("dconsole.log(totalNumberShowing);");
               setShow("none");
               setTotalNumberOfPastes((currentPage: number) => currentPage - 1);
+              setTotalNumberShowing((currentCount: number) => currentCount + 1);
             }}
             style={{ margin: "1vh" }}
             variant="primary"
@@ -84,6 +88,7 @@ export default function SinglePaste({
               removeSinglePaste(paste._id);
               setShow("none");
               setTotalNumberOfPastes((currentPage: number) => currentPage - 1);
+              setTotalNumberShowing((currentCount: number) => currentCount + 1);
             }}
             style={{ margin: "1vh" }}
             variant="danger"

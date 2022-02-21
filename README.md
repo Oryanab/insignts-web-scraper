@@ -1,6 +1,6 @@
 # Welcome To the Insignts Web Scraper App
 
-## Lunch the app:
+## Launch the app:
 
 open up a terminal type the next line and the app will load in a minute:
 
@@ -24,3 +24,43 @@ open up a terminal type the next line and the app will load in a minute:
 ## View the app on `http://localhost:3000/`:
 
 ![Home Page Image](assets/scrape-pastes-app.png)
+
+## Api Documentation:
+
+### Api Endpoints
+
+```
+POST http://localhost:4000/add-pastes
+Content-Type: application/json
+
+{
+    "pastes": [
+       {
+           "title": string,
+           "content": string,
+           "author": string,
+           "date": Date,
+           "sentiment": string,
+           "paste_entire_content": string,
+           "ner": {}
+       }
+    ]
+}
+```
+
+```
+GET http://localhost:4000/show-pastes
+```
+
+```
+GET http://localhost:4000/get-pastes/1
+```
+
+```
+GET http://localhost:4000/page-number
+```
+
+```
+GET http://localhost:4000/dashboard
+
+```
